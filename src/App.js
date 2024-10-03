@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import {Routes, Route  } from "react-router-dom";
+
 import './App.css';
+import React,{useState} from 'react';
+import Form from './components/Form'
+import FormList from "./components/FormList";
+import FormDetails from "./components/FormDetails";
+
 
 function App() {
+
+  const [tasks, setTasks] = useState([]);
+  const addTask =(task) =>{
+    setTasks([...tasks,task])
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<FormList tasks={tasks}/>}/>
+        <Route path="/form" element={<Form addTask={addTask}/>}/>
+        <Route path="/formDetails/:id" element={<FormDetails tasks={tasks}/>} />
+      </Routes>
+     
     </div>
   );
 }
